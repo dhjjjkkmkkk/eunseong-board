@@ -55,8 +55,16 @@ async function createComment(id){const content=document.getElementById('commentT
 async function likePost(id){toast('좋아요 저장 기능은 사용자별 식별 설정 후 활성화돼요')}
 function scrapPost(id){const a=getLocal('eunseong_scraps');if(a.includes(String(id))){setLocal('eunseong_scraps',a.filter(x=>x!==String(id)));toast('스크랩을 해제했어요')}else{a.push(String(id));setLocal('eunseong_scraps',a);toast('스크랩했어요')} }
 function renderScraps(){const ids=getLocal('eunseong_scraps');renderList(allPosts.filter(p=>ids.includes(String(p.id))),'scrapList')}
-init();
 </script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script>if(window.supabase)init();</script>
-</body></html>
+<script>
+window.addEventListener('load', () => {
+  if (window.supabase) {
+    init();
+  } else {
+    toast('연결 모듈을 불러오지 못했어요. 새로고침해 주세요.');
+  }
+});
+</script>
+</body>
+</html>
